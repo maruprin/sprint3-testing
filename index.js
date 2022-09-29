@@ -18,7 +18,7 @@ class Room {
     
         while (start <= end) {
             // console.log(start)
-            dateArray.push(new Date(start));
+            dateArray.push(new Date(start).toISOString().slice(0, 10));
             start = new Date(start.setDate(start.getDate() + 1)) 
         }
         return dateArray
@@ -56,7 +56,7 @@ class Room {
         console.log(totalDays)
         console.log(daysOff.length)
         console.log(result)
-        return result
+        return Math.round(result)
     }
 }
 
