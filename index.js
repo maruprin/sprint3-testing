@@ -86,20 +86,28 @@ class Booking {
     }
 }
 
-
 // También vamos a crear las siguientes funciones:
 // totalOccupancyPercentage(rooms, startDate, endDate) returns the total occupancy percentage across all rooms in the array
 // availableRooms(rooms, startDate, endDate) returns all rooms in the array that are not occupied for the entire duration
-// Nuestras clases y funciones estarán en el archivo index.js, y escribiremos otro archivo index.test.js
-// Escribiremos los tests primero, con jest, metiendo datos ficticios en las funciones y clases y calculando los resultados correctos a mano.
-// Escribimos un test por cada caso, no cada función / método. E.g.
 
 function totalOccupancyPercentage(rooms, startDate, endDate){
+    let totalOccupancy = 0;
+    for(let room of rooms){
+        totalOccupancy += room.occupancyPercentage(startDate, endDate) / rooms.length
+    }
+    return Math.round(totalOccupancy)
 
 }
 
 function availableRooms(rooms, startDate, endDate){
-
+//si la habitacion tiene 0% de occupancy esta vacia(disponible)
+let availableRooms = [];
+for(let room of rooms){
+   if(room.occupancyPercentage(startDate,endDate) === 0){
+    availableRooms.push(room)
+   }
+}
+return availableRooms.length
 }
 
 module.exports = { Room, Booking, totalOccupancyPercentage, availableRooms };

@@ -136,4 +136,156 @@ test('occupancyPercentage', () => {
     expect(booking.getFee()).toBe(0)
   })
  
-  //tests 
+  //tests totalOccupancyPercentage()
+
+  test('totalOccupancyPercentage()', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+    let room3 = new Room({name: 'Amapola',bookings: [], rate: 10000, discount: 10})
+    let booking1 = new Booking({name: 'Julieta', email: 'juliet@mymail.com', checkIn: '2022-01-01', checkOut: '2022-01-15', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Hector', email: 'tito@mymail.com', checkIn: '2022-01-20', checkOut: '2022-01-29', discount: 80, room: room2})
+    let booking3 = new Booking({name: 'Laura', email: 'lauri@mymail.com', checkIn: '2022-01-02', checkOut: '2022-01-09', discount: 80, room: room3})
+    
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    room3.bookings = [booking3];
+
+    let startDate = '2022-01-13';
+    let endDate = '2022-01-29';
+
+
+    expect(totalOccupancyPercentage([room1,room2,room3],startDate,endDate)).toBe(22)
+  })
+
+  test('totalOccupancyPercentage() occupied 100%', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+    let room3 = new Room({name: 'Amapola',bookings: [], rate: 10000, discount: 10})
+    let booking1 = new Booking({name: 'Julieta', email: 'juliet@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Hector', email: 'tito@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room2})
+    let booking3 = new Booking({name: 'Laura', email: 'lauri@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room3})
+    
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    room3.bookings = [booking3];
+
+    let startDate = '2022-09-01';
+    let endDate = '2022-09-22';
+
+
+    expect(totalOccupancyPercentage([room1,room2,room3],startDate,endDate)).toBe(100)
+  })
+
+  test('totalOccupancyPercentage() occupied 0%', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+    let room3 = new Room({name: 'Amapola',bookings: [], rate: 10000, discount: 10})
+    let booking1 = new Booking({name: 'Julieta', email: 'juliet@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Hector', email: 'tito@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room2})
+    let booking3 = new Booking({name: 'Laura', email: 'lauri@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room3})
+    
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    room3.bookings = [booking3];
+
+    let startDate = '2022-08-01';
+    let endDate = '2022-08-10';
+
+
+    expect(totalOccupancyPercentage([room1,room2,room3],startDate,endDate)).toBe(0)
+  })
+
+  test('totalOccupancyPercentage() occupied 50%', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+
+    let booking1 = new Booking({name: 'Julieta', email: 'juliet@mymail.com', checkIn: '2022-04-01', checkOut: '2022-04-13', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Hector', email: 'tito@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room2})
+
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    
+    let startDate = '2022-04-01';
+    let endDate = '2022-04-12';
+
+
+    expect(totalOccupancyPercentage([room1,room2],startDate,endDate)).toBe(50)
+  })
+
+  // tests availableRooms()
+
+  test('availableRooms() all available', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+    let room3 = new Room({name: 'Amapola',bookings: [], rate: 10000, discount: 10})
+    let booking1 = new Booking({name: 'Julieta', email: 'juliet@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Hector', email: 'tito@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room2})
+    let booking3 = new Booking({name: 'Laura', email: 'lauri@mymail.com', checkIn: '2022-09-01', checkOut: '2022-09-23', discount: 80, room: room3})
+    
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    room3.bookings = [booking3];
+
+    let startDate = '2022-08-01';
+    let endDate = '2022-08-10';
+
+
+    expect(availableRooms([room1,room2,room3],startDate,endDate)).toBe(3)
+  })
+
+  test('availableRooms() all complete', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+    let room3 = new Room({name: 'Amapola',bookings: [], rate: 10000, discount: 10})
+    let booking1 = new Booking({name: 'Julieta', email: 'juliet@mymail.com', checkIn: '2022-06-01', checkOut: '2022-06-10', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Hector', email: 'tito@mymail.com', checkIn: '2022-06-10', checkOut: '2022-06-20', discount: 80, room: room2})
+    let booking3 = new Booking({name: 'Laura', email: 'lauri@mymail.com', checkIn: '2022-06-20', checkOut: '2022-06-30', discount: 80, room: room3})
+    
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    room3.bookings = [booking3];
+
+    let startDate = '2022-06-05';
+    let endDate = '2022-06-25';
+
+
+    expect(availableRooms([room1,room2,room3],startDate,endDate)).toBe(0)
+  })
+
+  test('availableRooms() all complete', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+    let room3 = new Room({name: 'Amapola',bookings: [], rate: 10000, discount: 10})
+    let booking1 = new Booking({name: 'Catalina', email: 'cata@mymail.com', checkIn: '2022-03-11', checkOut: '2022-03-18', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Camila', email: 'cami@mymail.com', checkIn: '2022-03-16', checkOut: '2022-03-25', discount: 80, room: room2})
+    let booking3 = new Booking({name: 'Julian', email: 'julay@mymail.com', checkIn: '2022-02-04', checkOut: '2022-02-09', discount: 80, room: room3})
+    
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    room3.bookings = [booking3];
+
+    let startDate = '2022-03-16';
+    let endDate = '2022-03-19';
+
+
+    expect(availableRooms([room1,room2,room3],startDate,endDate)).toBe(1)
+  })
+
+  test('availableRooms() all complete', () => {
+    let room1 = new Room({name: 'Magnolia',bookings: [], rate: 15000, discount: 40})
+    let room2 = new Room({name: 'Jazmin',bookings: [], rate: 20000, discount: 30})
+    let room3 = new Room({name: 'Amapola',bookings: [], rate: 10000, discount: 10})
+    let booking1 = new Booking({name: 'Catalina', email: 'cata@mymail.com', checkIn: '2022-03-11', checkOut: '2022-03-18', discount: 80, room: room1})
+    let booking2 = new Booking({name: 'Camila', email: 'cami@mymail.com', checkIn: '2022-03-16', checkOut: '2022-03-25', discount: 80, room: room2})
+    let booking3 = new Booking({name: 'Julian', email: 'julay@mymail.com', checkIn: '2022-02-04', checkOut: '2022-02-09', discount: 80, room: room3})
+    
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+    room3.bookings = [booking3];
+
+    let startDate = '2022-02-05';
+    let endDate = '2022-02-10';
+
+
+    expect(availableRooms([room1,room2,room3],startDate,endDate)).toBe(2)
+  })
