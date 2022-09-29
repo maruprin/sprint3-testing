@@ -40,22 +40,22 @@ class Room {
     
     occupancyPercentage(startDate, endDate){
         const dates = this.dateArray(startDate, endDate);
-        console.log(dates)
-        console.log(dates.length)
+        // console.log(dates)
+        // console.log(dates.length)
         let daysOccupied = [];
         let daysOff = [];
         for(let date of dates) {
-            console.log(date)
+            // console.log(date)
             this.isOccupied(date) ? daysOccupied.push('+1 occupied') : daysOff.push('+1 off');
-            console.log(this.isOccupied(date))
+            // console.log(this.isOccupied(date))
         }
         let totalDaysOcuppied = daysOccupied.length;
         let totalDaysOff = daysOff.length;
         let totalDays = totalDaysOcuppied + totalDaysOff;
         let result = totalDaysOcuppied * 100 / totalDays;
-        console.log(totalDays)
-        console.log(daysOff.length)
-        console.log(result)
+        // console.log(totalDays)
+        // console.log(daysOff.length)
+        // console.log(result)
         return Math.round(result)
     }
 }
@@ -73,7 +73,15 @@ class Booking {
         this.room = room; // a room object
       }
 
-    get fee(){
+    getFee(){
+        const price = this.room.rate;
+        const discountRoom = (price * this.room.discount) / 100
+        const discountBooking = (price * this.discount) / 100
+        if((discountBooking + discountRoom) < price){
+            return Math.round(price - (discountBooking + discountRoom))
+        } else {
+            return 0;
+        }
 
     }
 }
