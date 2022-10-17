@@ -1,4 +1,22 @@
+interface RommInterface {
+  name: string;
+  bookings: Booking[];
+  rate: number;
+  discount: number;
+}
+
+interface BookingInterface {
+  name: string,
+   email: string,
+    checkIn: string,
+     checkOut:string,
+      discount:number,
+       room: 
+}
+
 class Room {
+  name: string;
+
   constructor({ name, bookings, rate, discount }) {
     this.name = name; // string
     this.bookings = bookings; // array of booking objects
