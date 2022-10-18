@@ -795,7 +795,6 @@ test("availableRooms() all complete", () => {
   room1.bookings = [booking1];
   room2.bookings = [booking2];
   room3.bookings = [booking3];
-
   let startDate: string = "2022-02-05";
   let endDate: string = "2022-02-10";
 
